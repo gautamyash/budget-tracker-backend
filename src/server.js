@@ -11,7 +11,7 @@ await connectDB();
 
 const app = express();
 app.use(cors({
-  origin: ["http://localhost:3000", "https://budget-tracker-frontend-1-dnp4tez2m-gautamyashs-projects.vercel.app"],
+  origin: ["http://localhost:3000", /^https:\/\/.*\.vercel\.app$/],
   credentials: true
 }));
 app.use(express.json());
