@@ -11,7 +11,17 @@ await connectDB();
 
 const app = express();
 app.use(cors({
-  origin: ["http://localhost:3000", /^https:\/\/.*\.vercel\.app$/],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Allow localhost and all vercel domains
+    if (origin === "http://localhost:3000" || origin.includes(".vercel.app")) {
+      return callback(null, true);
+    }
+    
+    callback(new Error("Not allowed by CORS"));
+  },
   credentials: true
 }));
 app.use(express.json());
