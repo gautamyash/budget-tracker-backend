@@ -23,6 +23,7 @@ class Transaction(models.Model):
     type = models.CharField(max_length=10, choices=TYPE_CHOICES)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     date = models.DateField()
+    description = models.CharField(max_length=255, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -30,7 +31,8 @@ class Transaction(models.Model):
 
 
 class Budget(models.Model):
-    month = models.CharField(max_length=20)
+    month = models.IntegerField()
+    year = models.IntegerField()
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
