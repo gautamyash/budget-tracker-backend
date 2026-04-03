@@ -63,10 +63,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-# Database - Auto-switches between SQLite (local) and PostgreSQL (production)
+# ✅ PostgreSQL ONLY - Requires DATABASE_URL environment variable
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
+        default=os.environ.get('DATABASE_URL', ''),
         conn_max_age=600,
         conn_health_checks=True,
     )
@@ -102,7 +102,7 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-# ✅ CORS FIX (FINAL)
+# ✅ CORS Configuration for Frontend
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://budget-tracker-frontend-puce.vercel.app",
